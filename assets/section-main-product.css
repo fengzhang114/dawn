@@ -1598,3 +1598,9 @@ a.product__text {
     border: none;
   }
 }
+
+/* customize by feng zhang */
+.js .product-form__input {
+  display: flex;
+  flex-direction: column;
+}
