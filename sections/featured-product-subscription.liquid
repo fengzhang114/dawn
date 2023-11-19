@@ -139,7 +139,7 @@
         </media-gallery>
       </div> {% endcomment %}
       {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-      <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
+      <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
       <div class="product__info-wrapper grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
