@@ -138,7 +138,7 @@
           {%- endif -%}
         </media-gallery>
       </div> {% endcomment %}
-      {% assign variant_images = product.images  %}
+      {% assign variant_images = product.images  | map: 'src' | json %}
 
       <script>
   // 将Liquid变量转换为JavaScript变量
