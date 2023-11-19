@@ -141,7 +141,7 @@
       {% assign variant_images = product.images | map: 'src' %}
       <script>
   // 将Liquid变量转换为JavaScript变量
-  var variantImages = {{ variant_images | json }};
+  
   console.log('Variant Images:', variantImages);
 </script>
       <div class="grid__item product__media-wrapper">
