@@ -138,16 +138,9 @@
           {%- endif -%}
         </media-gallery>
       </div> {% endcomment %}
-      {% assign variant_images = product.images  | map: 'src' %}
+     {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
 
-      <script>
-  // 将Liquid变量转换为JavaScript变量
-  
-          var variantImages = {{ variant_images }};
-  
-  console.log('Variant Images:');
-  console.log('Variant Imagess:', variantImages);
-      </script>
+
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
