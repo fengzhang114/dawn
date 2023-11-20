@@ -32,16 +32,15 @@
       class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
       role="list"
     >
-      {% if product.selected_or_first_available_variant.featured_media != null %}
-        {% assign featured_media = product.selected_or_first_available_variant.featured_media %}
+      {% for media in product.media %}
         <li
-          id="Slide-{{ section.id }}-{{ featured_media.id }}{{ id_append }}"
-          class="product__media-item grid__item slider__slide is-active"
-          data-media-id="{{ section.id }}-{{ featured_media.id }}"
+          id="Slide-{{ section.id }}-{{ media.id }}{{ id_append }}"
+          class="product__media-item grid__item slider__slide{% if forloop.first %} is-active{% endif %}"
+          data-media-id="{{ section.id }}-{{ media.id }}"
         >
-          {% assign media_position = 1 %}
+          {% assign media_position = forloop.index %}
           {% render 'product-thumbnail',
-            media: featured_media,
+            media: media,
             media_count: media_count,
             position: media_position,
             desktop_layout: gallery_layout,
@@ -52,44 +51,13 @@
             media_width: media_width,
             media_fit: media_fit,
             constrain_to_viewport: constrain_to_viewport,
-            lazy_load: false
+            lazy_load: media_position > 1
           %}
         </li>
-      {% endif %}
-      {% for media in product.media %}
-        {% unless media.id == product.selected_or_first_available_variant.featured_media.id %}
-          <li
-            id="Slide-{{ section.id }}-{{ media.id }}{{ id_append }}"
-            class="product__media-item grid__item slider__slide"
-            data-media-id="{{ section.id }}-{{ media.id }}"
-          >
-            {% liquid
-              assign media_position = media_position | default: 0 | plus: 1
-              assign lazy_load = false
-              if media_position > 1
-                assign lazy_load = true
-              endif
-            %}
-            {% render 'product-thumbnail',
-              media: media,
-              media_count: media_count,
-              position: media_position,
-              desktop_layout: gallery_layout,
-              mobile_layout: mobile_thumbnails,
-              loop: enable_video_looping,
-              modal_id: section.id,
-              xr_button: true,
-              media_width: media_width,
-              media_fit: media_fit,
-              constrain_to_viewport: constrain_to_viewport,
-              lazy_load: lazy_load
-            %}
-          </li>
-        {% endunless %}
       {% endfor %}
     </ul>
     {% unless is_duplicate %}
-      <div class="slider-buttons no-js-hidden quick-add-hidden">
+      <div class="slider-buttons no-js-hidden quick-add-hidden{% if media_count <= 3 %} small-hide{% endif %}">
         <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">
           {% render 'icon-caret' %}
         </button>
@@ -105,5 +73,4 @@
       </div>
     {% endunless %}
   </slider-component>
-  <!-- 继续包含其他相关HTML和Liquid代码 -->
 </media-gallery>
