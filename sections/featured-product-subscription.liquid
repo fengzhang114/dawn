@@ -141,10 +141,7 @@
       </div> {% endcomment %}
      {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
 
-      <div class="grid__item product__media-wrapper">
-        {% comment %} {% render 'feng' %} {% endcomment %}
-      
-      </div>
+
       <div class="product__info-wrapper grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <product-info
           id="ProductInfo-{{ section.id }}"
