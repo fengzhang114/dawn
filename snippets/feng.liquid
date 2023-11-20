@@ -1,15 +1,39 @@
-{% assign product = all_products['classic-shotengai-snack-box'] %}  <!-- 替换为实际的产品句柄 -->
-{% assign variant_images = product.images | map: 'src' %}   <!-- 获取产品图片URLs -->
-{% assign is_duplicate = false %}                           <!-- 假定不是重复实例 -->
-{% assign media_count = product.media.size %}               <!-- 获取媒体数量 -->
-{% assign gallery_layout = 'thumbnail' %}  <!-- 缩略图布局 -->
-{% assign media_size = 'medium' %}          <!-- 媒体大小 -->
-{% assign hide_variants = false %}          <!-- 是否隐藏变体 -->
-{% assign mobile_thumbnails = 'show' %}     <!-- 移动端缩略图显示设置 -->
-{% assign enable_sticky_info = false %}     <!-- 是否启用粘性信息 -->
-{% assign media_width = 0.55 %}             <!-- 媒体宽度 -->
-{% assign media_fit = 'cover' %}            <!-- 媒体适应方式 -->
-{% assign id_append = '' %}
+{% comment %}
+  Renders a product media gallery. Should be used with 'media-gallery.js'
+  Also see 'product-media-modal'
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - variant_images: {Array} Product images associated with a variant
+  - is_duplicate: {Boolean} Prevents rendering uneeded elements and duplicate ids for subsequent instances
+
+  Usage:
+  {% render 'product-media-gallery', is_duplicate: true %}
+{% endcomment %}
+
+{%- liquid
+  
+  assign single_media_visible = true
+  
+
+  assign media_count = product.media.size
+  
+
+  
+  assign single_media_visible_mobile = true
+  
+
+ 
+
+  
+    assign media_width = 0.55
+  
+
+  assign id_append = ''
+  if is_duplicate
+    assign id_append = '-duplicate'
+  endif
+-%}
 
 <media-gallery
   id="MediaGallery-{{ section.id }}{{ id_append }}"
