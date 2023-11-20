@@ -53,14 +53,14 @@
   data-desktop-layout="thumbnail"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
-  <slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="slider-mobile-gutter">
-    {%- unless is_duplicate -%}
+  <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter">
+    
       <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
-        {{ 'accessibility.skip_to_product_info' | t }}
+        Skip to product information 
       </a>
-    {%- endunless -%}
+   
     <ul
-      id="Slider-Gallery-{{ section.id }}{{ id_append }}"
+      id="Slider-Gallery-{{ section.id }}"
       class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
       role="list"
     >

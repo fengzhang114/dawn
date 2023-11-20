@@ -44,13 +44,13 @@
 -%}
 
 <media-gallery
-  id="MediaGallery-{{ section.id }}"
+  id="MediaGallery-{{ section.id }}{{ id_append }}"
   role="region"
-  
+  {% if section.settings.enable_sticky_info %}
     class="product__column-sticky"
-  
-  aria-label="Gallery Viewer"
-  data-desktop-layout="thumbnail"
+  {% endif %}
+  aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+  data-desktop-layout="{{ section.settings.gallery_layout }}"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="slider-mobile-gutter">
@@ -147,7 +147,24 @@
       </div>
     {%- endunless -%}
   </slider-component>
-
+  {%- if first_3d_model -%}
+    <button
+      class="button button--full-width product__xr-button"
+      type="button"
+      aria-label="{{ 'products.product.xr_button_label' | t }}"
+      data-shopify-xr
+      data-shopify-model3d-id="{{ first_3d_model.id }}"
+      data-shopify-title="{{ product.title | escape }}"
+      data-shopify-xr-hidden
+    >
+      {% render 'icon-3d-model' %}
+      {{ 'products.product.xr_button' | t }}
+    </button>
+  {%- endif -%}
+  {%- if media_count > 1
+    and section.settings.gallery_layout contains 'thumbnail'
+    or section.settings.mobile_thumbnails == 'show'
+  -%}
     <slider-component
       id="GalleryThumbnails-{{ section.id }}{{ id_append }}"
       class="thumbnail-slider slider-mobile-gutter quick-add-hidden{% unless section.settings.gallery_layout contains 'thumbnail' %} medium-hide large-up-hide{% endunless %}{% if section.settings.mobile_thumbnails != 'show' %} small-hide{% endif %}{% if media_count <= 3 %} thumbnail-slider--no-slide{% endif %}"
@@ -287,5 +304,5 @@
         {% render 'icon-caret' %}
       </button>
     </slider-component>
- 
+  {%- endif -%}
 </media-gallery>
