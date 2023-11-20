@@ -142,7 +142,7 @@
      {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
 
       <div class="grid__item product__media-wrapper">
-        {% render 'feng' %}
+        {% render 'feng' ,variant_images%}
       
       </div>
       <div class="product__info-wrapper grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
