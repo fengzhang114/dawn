@@ -1,0 +1,109 @@
+{% assign product = all_products['classic-shotengai-snack-box'] %}  <!-- 替换为实际的产品句柄 -->
+{% assign variant_images = product.images | map: 'src' %}   <!-- 获取产品图片URLs -->
+{% assign is_duplicate = false %}                           <!-- 假定不是重复实例 -->
+{% assign media_count = product.media.size %}               <!-- 获取媒体数量 -->
+{% assign media_width = 0.55 %}                             <!-- 设置媒体宽度 -->
+{% assign gallery_layout = 'thumbnail' %}                   <!-- 使用 thumbnail 布局 -->
+{% assign mobile_thumbnails = 'show' %}                     <!-- 移动端缩略图设置 -->
+{% assign enable_sticky_info = false %}                     <!-- 粘性信息设置 -->
+{% assign media_fit = 'cover' %}                            <!-- 媒体尺寸适应方式 -->
+{% assign constrain_to_viewport = false %}                  <!-- 是否限制到视口大小 -->
+{% assign enable_video_looping = true %}                    <!-- 是否循环播放视频 -->
+{% assign id_append = '' %}                                 <!-- ID附加字符串 -->
+
+<media-gallery
+  id="MediaGallery-{{ section.id }}{{ id_append }}"
+  role="region"
+  {% if enable_sticky_info %}
+    class="product__column-sticky"
+  {% endif %}
+  aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+  data-desktop-layout="{{ gallery_layout }}"
+>
+  <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
+  <slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="slider-mobile-gutter">
+    {% unless is_duplicate %}
+      <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
+        {{ 'accessibility.skip_to_product_info' | t }}
+      </a>
+    {% endunless %}
+    <ul
+      id="Slider-Gallery-{{ section.id }}{{ id_append }}"
+      class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
+      role="list"
+    >
+      {% if product.selected_or_first_available_variant.featured_media != null %}
+        {% assign featured_media = product.selected_or_first_available_variant.featured_media %}
+        <li
+          id="Slide-{{ section.id }}-{{ featured_media.id }}{{ id_append }}"
+          class="product__media-item grid__item slider__slide is-active"
+          data-media-id="{{ section.id }}-{{ featured_media.id }}"
+        >
+          {% assign media_position = 1 %}
+          {% render 'product-thumbnail',
+            media: featured_media,
+            media_count: media_count,
+            position: media_position,
+            desktop_layout: gallery_layout,
+            mobile_layout: mobile_thumbnails,
+            loop: enable_video_looping,
+            modal_id: section.id,
+            xr_button: true,
+            media_width: media_width,
+            media_fit: media_fit,
+            constrain_to_viewport: constrain_to_viewport,
+            lazy_load: false
+          %}
+        </li>
+      {% endif %}
+      {% for media in product.media %}
+        {% unless media.id == product.selected_or_first_available_variant.featured_media.id %}
+          <li
+            id="Slide-{{ section.id }}-{{ media.id }}{{ id_append }}"
+            class="product__media-item grid__item slider__slide"
+            data-media-id="{{ section.id }}-{{ media.id }}"
+          >
+            {% liquid
+              assign media_position = media_position | default: 0 | plus: 1
+              assign lazy_load = false
+              if media_position > 1
+                assign lazy_load = true
+              endif
+            %}
+            {% render 'product-thumbnail',
+              media: media,
+              media_count: media_count,
+              position: media_position,
+              desktop_layout: gallery_layout,
+              mobile_layout: mobile_thumbnails,
+              loop: enable_video_looping,
+              modal_id: section.id,
+              xr_button: true,
+              media_width: media_width,
+              media_fit: media_fit,
+              constrain_to_viewport: constrain_to_viewport,
+              lazy_load: lazy_load
+            %}
+          </li>
+        {% endunless %}
+      {% endfor %}
+    </ul>
+    {% unless is_duplicate %}
+      <div class="slider-buttons no-js-hidden quick-add-hidden">
+        <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">
+          {% render 'icon-caret' %}
+        </button>
+        <div class="slider-counter caption">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+          <span class="slider-counter--total">{{ media_count }}</span>
+        </div>
+        <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">
+          {% render 'icon-caret' %}
+        </button>
+      </div>
+    {% endunless %}
+  </slider-component>
+  <!-- 继续包含其他相关HTML和Liquid代码 -->
+</media-gallery>
