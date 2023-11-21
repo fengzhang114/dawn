@@ -12,6 +12,8 @@
 {% endcomment %}
 
 {%- liquid
+  assign product = all_products['classic-shotengai-snack-box']
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
   if section.settings.hide_variants and variant_images.size == product.media.size
     assign single_media_visible = true
   endif
