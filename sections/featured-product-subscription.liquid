@@ -61,7 +61,7 @@
   <div class="page-width section-{{ section.id }}-padding{% if section.settings.secondary_background %} isolate{% endif %}">
     <div class="featured-product product product--{{ section.settings.media_size }} grid grid--1-col gradient color-{{ section.settings.color_scheme }} product--{{ section.settings.media_position }}{% if section.settings.secondary_background == false %} isolate{% endif %} {% if product.media.size > 0 or section.settings.product == blank %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
-        <media-gallery
+        {% comment %} <media-gallery
           id="MediaGallery-{{ section.id }}"
           role="region"
           aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
@@ -136,7 +136,8 @@
               {{ 'products.product.xr_button' | t }}
             </button>
           {%- endif -%}
-        </media-gallery>
+        </media-gallery> {% endcomment %}
+        {% render 'feng', product:product %}
       </div>
       <div class="product__info-wrapper grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <product-info
