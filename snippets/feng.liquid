@@ -1,12 +1,4 @@
 <div>
     <h2>{{ product.title }}</h2>
-    <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.title }}">
-    <p>{{ product.description }}</p>
-
-    <!-- List all variants -->
-    <ul>
-        {% for variant in product.variants %}
-            <li>{{ variant.title }} - {{ variant.price | money_with_currency }}</li>
-        {% endfor %}
-    </ul>
+    
 </div>
