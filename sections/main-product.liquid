@@ -66,7 +66,11 @@
     <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
       {% render 'product-media-gallery', variant_images: variant_images %}
     </div>
-    <script>console.log("feng zhang",variant_images)</script>
+    <script>  
+      var variantImages = {{ variant_images | json }};
+    // Log the array to the console
+      console.log('Variant Images:', variantImages);
+    </script>
     <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <product-info
         id="ProductInfo-{{ section.id }}"
