@@ -1,3 +1,89 @@
+<style>
+  .pp__snacks {
+    position: relative;
+}
+
+section {
+    display: block;
+}
+
+@media screen and (min-width: 660px)
+.pp__cont {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 60px;
+}
+
+.pp__cont {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 30px;
+    position: relative;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.pp__snacks__header {
+    width: 100%;
+}
+
+@media screen and (min-width: 660px)
+.section_header {
+    font-size: 44px;
+    line-height: 56px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section_header {
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #001a43;
+    font-size: 3rem;
+    line-height: 3.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.pp__snacks__header h2 {
+    margin-bottom: 0;
+    max-width: 880px;
+}
+
+@media screen and (min-width: 660px)
+.pp__snacks__gallery {
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+}
+
+.pp__snacks__gallery {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.pp__snacks__gallery__snack {
+    width: 100%;
+    aspect-ratio: 1;
+    background-position: center;
+    background-size: contain;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+</style>
 <section class="pp__snacks">
     <div class="pp__cont">
       <div class="flex flex-col items-center">
@@ -1467,6 +1553,7 @@
 {% endschema %}
 
 {% stylesheet %}
+  
 {% endstylesheet %}
 
 {% javascript %}
