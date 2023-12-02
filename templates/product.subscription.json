@@ -85,6 +85,11 @@
         "padding_bottom": 12
       }
     },
+    "c6abeb54-bfd0-4ddf-9ac3-15ee61c632a3": {
+      "type": "products-custom",
+      "settings": {
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -146,6 +151,7 @@
   },
   "order": [
     "main",
+    "c6abeb54-bfd0-4ddf-9ac3-15ee61c632a3",
     "related-products",
     "8f27f77b-c579-4973-a4f9-badcdcd4ebfa"
   ]
